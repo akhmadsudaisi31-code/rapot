@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mcp>
+
+    <architecture>
+
+        <frontend>
+
+            <framework>Vue 3</framework>
+            <bundler>Vite</bundler>
+            <state_management>Pinia</state_management>
+            <router>Vue Router</router>
+            <ui_framework>TailwindCSS</ui_framework>
+            <type>PWA</type>
+
+        </frontend>
+
+        <backend>
+
+            <platform>Firebase</platform>
+            <services>
+
+                <service>Firebase Authentication</service>
+                <service>Cloud Firestore</service>
+                <service>Firebase Storage</service>
+                <service>Firebase Functions</service>
+
+            </services>
+
+        </backend>
+
+        <hosting>
+
+            <provider>Firebase Hosting</provider>
+
+        </hosting>
+
+    </architecture>
+
+    <services>
+
+        <auth_service>
+
+            <description>
+                Mengelola autentikasi pengguna menggunakan Firebase Auth
+            </description>
+
+            <methods>
+
+                <method>login</method>
+                <method>register</method>
+                <method>logout</method>
+                <method>role_validation</method>
+
+            </methods>
+
+        </auth_service>
+
+        <academic_service>
+
+            <description>
+                Mengelola data akademik seperti siswa, kelas, mata pelajaran
+            </description>
+
+            <collections>
+
+                <collection>students</collection>
+                <collection>classes</collection>
+                <collection>subjects</collection>
+                <collection>teachers</collection>
+
+            </collections>
+
+        </academic_service>
+
+        <assessment_service>
+
+            <description>
+                Mengelola nilai siswa yang diinput oleh guru mata pelajaran
+            </description>
+
+            <collections>
+
+                <collection>grades</collection>
+
+            </collections>
+
+        </assessment_service>
+
+        <report_service>
+
+            <description>
+                Menghasilkan raport siswa dari nilai yang tersedia
+            </description>
+
+            <collections>
+
+                <collection>reports</collection>
+
+            </collections>
+
+        </report_service>
+
+    </services>
+
+    <firestore_schema>
+
+        <collection name="users">
+
+            <field>name</field>
+            <field>email</field>
+            <field>role</field>
+
+        </collection>
+
+        <collection name="students">
+
+            <field>nis</field>
+            <field>name</field>
+            <field>gender</field>
+            <field>class_id</field>
+
+        </collection>
+
+        <collection name="classes">
+
+            <field>name</field>
+            <field>grade</field>
+            <field>homeroom_teacher_id</field>
+
+        </collection>
+
+        <collection name="subjects">
+
+            <field>name</field>
+            <field>code</field>
+
+        </collection>
+
+        <collection name="teacher_subjects">
+
+            <field>teacher_id</field>
+            <field>subject_id</field>
+            <field>class_id</field>
+
+        </collection>
+
+        <collection name="grades">
+
+            <field>student_id</field>
+            <field>subject_id</field>
+            <field>teacher_id</field>
+            <field>knowledge_score</field>
+            <field>skill_score</field>
+            <field>semester</field>
+            <field>year</field>
+
+        </collection>
+
+        <collection name="reports">
+
+            <field>student_id</field>
+            <field>semester</field>
+            <field>year</field>
+            <field>description</field>
+            <field>final_score</field>
+
+        </collection>
+
+    </firestore_schema>
+
+</mcp>

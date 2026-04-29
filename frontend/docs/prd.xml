@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<prd>
+
+    <product>
+        <name>SIPENA MERDEKA</name>
+        <description>
+            Sistem Penilaian dan Raport Siswa berbasis Kurikulum Merdeka.
+            Aplikasi berbasis Web dan Progressive Web App (PWA) yang dapat
+            digunakan oleh Admin, Guru Mata Pelajaran, dan Wali Kelas.
+        </description>
+    </product>
+
+    <technology_stack>
+        <frontend>Vue 3 + Vite</frontend>
+        <backend>Firebase</backend>
+        <database>Firestore</database>
+        <authentication>Firebase Authentication</authentication>
+        <storage>Firebase Storage</storage>
+        <hosting>Firebase Hosting</hosting>
+        <pwa>Workbox Service Worker</pwa>
+    </technology_stack>
+
+    <goals>
+        <goal>Mempermudah guru menginput nilai siswa</goal>
+        <goal>Monitoring perkembangan akademik siswa</goal>
+        <goal>Generate raport Kurikulum Merdeka otomatis</goal>
+        <goal>Digitalisasi sistem penilaian sekolah</goal>
+    </goals>
+
+    <users>
+
+        <role name="ADMIN">
+
+            <permissions>
+
+                <permission>manage_users</permission>
+                <permission>manage_students</permission>
+                <permission>manage_classes</permission>
+                <permission>manage_subjects</permission>
+                <permission>teacher_subject_mapping</permission>
+                <permission>generate_reports</permission>
+
+            </permissions>
+
+        </role>
+
+        <role name="GURU_MAPEL">
+
+            <permissions>
+
+                <permission>view_assigned_classes</permission>
+                <permission>input_grades</permission>
+                <permission>edit_grades</permission>
+
+            </permissions>
+
+        </role>
+
+        <role name="WALI_KELAS">
+
+            <permissions>
+
+                <permission>view_class_students</permission>
+                <permission>view_all_subject_grades</permission>
+                <permission>generate_report</permission>
+                <permission>edit_report_description</permission>
+
+            </permissions>
+
+        </role>
+
+    </users>
+
+    <features>
+
+        <authentication>
+
+            <login>true</login>
+            <logout>true</logout>
+            <role_based_access>true</role_based_access>
+
+        </authentication>
+
+        <academic_management>
+
+            <students>true</students>
+            <classes>true</classes>
+            <subjects>true</subjects>
+            <teacher_subject_mapping>true</teacher_subject_mapping>
+
+        </academic_management>
+
+        <grading_system>
+
+            <knowledge_score>true</knowledge_score>
+            <skill_score>true</skill_score>
+
+        </grading_system>
+
+        <report_system>
+
+            <generate_report>true</generate_report>
+            <report_description>true</report_description>
+            <export_pdf>true</export_pdf>
+
+        </report_system>
+
+    </features>
+
+    <kurikulum_merdeka>
+
+        <assessment_components>
+
+            <knowledge>
+
+                <item>PH</item>
+                <item>PTS</item>
+                <item>PAS</item>
+
+            </knowledge>
+
+            <skill>
+
+                <item>praktik</item>
+                <item>proyek</item>
+                <item>produk</item>
+
+            </skill>
+
+        </assessment_components>
+
+        <formula>
+
+            (knowledge_score + skill_score) / 2
+
+        </formula>
+
+        <predicates>
+
+            <grade>
+                <range>90-100</range>
+                <label>A</label>
+            </grade>
+
+            <grade>
+                <range>80-89</range>
+                <label>B</label>
+            </grade>
+
+            <grade>
+                <range>70-79</range>
+                <label>C</label>
+            </grade>
+
+            <grade>
+                <range>0-69</range>
+                <label>D</label>
+            </grade>
+
+        </predicates>
+
+    </kurikulum_merdeka>
+
+    <pwa_features>
+
+        <feature>installable</feature>
+        <feature>offline_cache</feature>
+        <feature>background_sync</feature>
+        <feature>responsive_mobile</feature>
+
+    </pwa_features>
+
+</prd>

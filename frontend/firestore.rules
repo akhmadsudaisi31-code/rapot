@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isSuperAdmin() {
+      return request.auth != null && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'superadmin' || request.auth.token.email == 'superadmin@smk.id');
+    }
+    
+    function getUserTenantId() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.tenantId;
+    }
+    
+    function belongsToTenant(tenantId) {
+      return request.auth != null && getUserTenantId() == tenantId;
+    }
+    
+    // Global users collection
+    match /users/{userId} {
+      allow read: if request.auth != null && (request.auth.uid == userId || isSuperAdmin() || (resource != null && getUserTenantId() == resource.data.tenantId));
+      allow write: if request.auth != null && (request.auth.uid == userId || isSuperAdmin());
+    }
+    
+    // Tenant documents
+    match /tenants/{tenantId} {
+      allow read: if belongsToTenant(tenantId) || isSuperAdmin();
+      allow create: if request.auth != null && request.auth.uid == tenantId;
+      allow update, delete: if isSuperAdmin();
+      
+      // All subcollections within a tenant
+      match /{subcollection}/{docId} {
+        allow read: if belongsToTenant(tenantId) || isSuperAdmin();
+        allow write: if belongsToTenant(tenantId) || isSuperAdmin();
+      }
+    }
+  }
+}
